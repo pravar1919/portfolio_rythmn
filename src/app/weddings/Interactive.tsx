@@ -32,7 +32,7 @@ export function CeremonyExplorer() {
               aria-controls="ceremony-panel"
               onClick={() => setActive(x.id)}
               className={`rounded-full border px-4 py-2 font-wedding text-[18px] transition-colors ${
-                x.id === active ? "border-maroon bg-maroon text-ivory" : "border-maroon/25 text-maroon hover:border-maroon/60"
+                x.id === active ? "on-forest border-forest bg-forest text-ivory" : "border-line-strong text-forest hover:border-line-strong"
               }`}
             >
               {x.name}
@@ -51,12 +51,12 @@ export function CeremonyExplorer() {
             transition={{ duration: 0.35 }}
             className="mt-8"
           >
-            <h3 className="font-wedding text-[clamp(2.4rem,4vw,3.4rem)] leading-none text-maroon italic">{c.name}</h3>
-            <p className="mt-3 text-[17px] text-maroon/75">{c.line}</p>
+            <h3 className="font-wedding text-[clamp(2.4rem,4vw,3.4rem)] leading-none text-forest italic">{c.name}</h3>
+            <p className="mt-3 text-[17px] text-muted">{c.line}</p>
             <ul className="mt-6 space-y-2.5">
               {c.includes.map((i) => (
-                <li key={i} className="flex gap-3 text-[15px] text-maroon/85">
-                  <span aria-hidden className="text-gold">✦</span>
+                <li key={i} className="flex gap-3 text-[15px] text-muted">
+                  <span aria-hidden className="text-clay">✦</span>
                   {i}
                 </li>
               ))}
@@ -65,7 +65,7 @@ export function CeremonyExplorer() {
         </AnimatePresence>
       </div>
       <div className="relative flex min-h-[420px] items-center justify-center lg:col-span-7">
-        <div aria-hidden className="absolute inset-6 rounded-[50%_50%_24px_24px/30%_30%_24px_24px] border border-gold/40 bg-white/40" />
+        <div aria-hidden className="absolute inset-6 rounded-[50%_50%_24px_24px/30%_30%_24px_24px] border border-line-strong bg-ivory-2" />
         <AnimatePresence mode="wait">
           <motion.div
             key={c.id}
@@ -76,9 +76,9 @@ export function CeremonyExplorer() {
             className="relative z-10 px-10 py-10"
           >
             {c.art ? (
-              <Image src={c.art.src} alt={c.art.alt} width={c.art.w} height={c.art.h} className="mx-auto h-auto max-h-[380px] w-auto drop-shadow-[0_20px_30px_rgb(91_15_30/0.18)]" />
+              <Image src={c.art.src} alt={c.art.alt} width={c.art.w} height={c.art.h} className="mx-auto h-auto max-h-[380px] w-auto drop-shadow-[0_20px_30px_rgb(37_39_32/0.18)]" />
             ) : (
-              <div className="grid size-56 place-items-center rounded-full border border-dashed border-gold/60 text-center font-wedding text-[20px] text-maroon/70 italic">
+              <div className="grid size-56 place-items-center rounded-full border border-dashed border-line-strong text-center font-wedding text-[20px] text-muted italic">
                 Your couple,
                 <br />
                 illustrated
@@ -86,7 +86,7 @@ export function CeremonyExplorer() {
             )}
           </motion.div>
         </AnimatePresence>
-        <p className="absolute right-0 bottom-0 left-0 z-10 text-center text-[12px] text-maroon/80">
+        <p className="absolute right-0 bottom-0 left-0 z-10 text-center text-[12px] text-muted">
           Illustrations from Romit & Ayushi’s live site — every couple gets their own.
         </p>
       </div>
@@ -126,38 +126,38 @@ export function InvitePreview() {
   return (
     <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
       <form className="space-y-5 lg:col-span-4" onSubmit={(e) => e.preventDefault()} aria-label="Invitation preview inputs">
-        <span className="inline-block rounded-full bg-maroon px-3 py-1 font-mono text-[10px] tracking-[0.16em] text-ivory uppercase">Demo · try it</span>
+        <span className="inline-block rounded-full bg-forest px-3 py-1 font-mono text-[10px] tracking-[0.16em] text-ivory uppercase">Demo · try it</span>
         <Field label="Partner one" value={a} onChange={setA} />
         <Field label="Partner two" value={b} onChange={setB} />
         <label className="block">
-          <span className="eyebrow text-maroon/70">Wedding date</span>
+          <span className="eyebrow text-muted">Wedding date</span>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="mt-2 w-full rounded-xl border border-maroon/20 bg-white/70 px-4 py-3 text-maroon outline-none focus:border-maroon"
+            className="mt-2 w-full rounded-xl border border-line-strong bg-ivory px-4 py-3 text-forest outline-none focus:border-forest"
           />
         </label>
-        <p className="text-[13px] text-maroon/80">Nothing you type leaves your browser.</p>
+        <p className="text-[13px] text-muted">Nothing you type leaves your browser.</p>
       </form>
       <div className="lg:col-span-8">
-        <div className="relative mx-auto max-w-[560px] overflow-hidden rounded-[28px] border border-gold/40 bg-[radial-gradient(120%_80%_at_50%_0%,#fff,#fbf1e6)] px-6 py-14 text-center shadow-[0_40px_80px_-40px_rgb(91_15_30/0.35)] sm:px-12">
+        <div className="relative mx-auto max-w-[560px] overflow-hidden rounded-[28px] border border-line-strong bg-ivory-2 px-6 py-14 text-center shadow-[0_40px_80px_-40px_rgb(37_39_32/0.35)] sm:px-12">
           <Image src="/weddings/flora-tl.webp" alt="" width={420} height={338} sizes="208px" className="pointer-events-none absolute -top-6 -left-8 w-40 opacity-90 sm:w-52" />
           <Image src="/weddings/flora-br.webp" alt="" width={420} height={314} sizes="208px" className="pointer-events-none absolute -right-8 -bottom-6 w-40 opacity-90 sm:w-52" />
-          <p className="relative font-wedding text-[13px] tracking-[0.3em] text-gold uppercase">Together with their families</p>
-          <p className="relative mt-6 font-wedding text-[clamp(2.4rem,7vw,3.8rem)] leading-[1.05] text-maroon italic" aria-live="polite">
-            {a || "…"} <span className="text-gold">&</span> {b || "…"}
+          <p className="relative font-wedding text-[13px] tracking-[0.3em] text-clay uppercase">Together with their families</p>
+          <p className="relative mt-6 font-wedding text-[clamp(2.4rem,7vw,3.8rem)] leading-[1.05] text-forest italic" aria-live="polite">
+            {a || "…"} <span className="text-clay">&</span> {b || "…"}
           </p>
-          <p className="relative mt-4 font-wedding text-[15px] tracking-[0.25em] text-maroon/80 uppercase">{pretty}</p>
+          <p className="relative mt-4 font-wedding text-[15px] tracking-[0.25em] text-muted uppercase">{pretty}</p>
           <div className="relative mx-auto mt-8 grid max-w-sm grid-cols-4 gap-2" aria-label="Countdown">
             {(["days", "hours", "mins", "secs"] as const).map((k) => (
-              <div key={k} className="rounded-xl border border-gold/30 bg-white/60 py-3">
-                <p className="font-wedding text-[28px] leading-none text-maroon tabular-nums">{left ? String(left[k]).padStart(2, "0") : "--"}</p>
-                <p className="mt-1 font-mono text-[9px] tracking-[0.2em] text-maroon/80 uppercase">{k}</p>
+              <div key={k} className="rounded-xl border border-line-strong bg-ivory py-3">
+                <p className="font-wedding text-[28px] leading-none text-forest tabular-nums">{left ? String(left[k]).padStart(2, "0") : "--"}</p>
+                <p className="mt-1 font-mono text-[9px] tracking-[0.2em] text-muted uppercase">{k}</p>
               </div>
             ))}
           </div>
-          <p className="relative mt-8 font-wedding text-[17px] text-maroon/70 italic">Haldi · Sangeet · Pheras · Reception</p>
+          <p className="relative mt-8 font-wedding text-[17px] text-muted italic">Haldi · Sangeet · Pheras · Reception</p>
         </div>
       </div>
     </div>
@@ -167,12 +167,12 @@ export function InvitePreview() {
 function Field({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   return (
     <label className="block">
-      <span className="eyebrow text-maroon/70">{label}</span>
+      <span className="eyebrow text-muted">{label}</span>
       <input
         value={value}
         maxLength={24}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-2 w-full rounded-xl border border-maroon/20 bg-white/70 px-4 py-3 font-wedding text-[20px] text-maroon outline-none focus:border-maroon"
+        className="mt-2 w-full rounded-xl border border-line-strong bg-ivory px-4 py-3 font-wedding text-[20px] text-forest outline-none focus:border-forest"
       />
     </label>
   );

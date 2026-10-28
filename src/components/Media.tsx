@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 
 /**
@@ -58,7 +58,7 @@ export function InViewVideo({
   );
 }
 
-/** An image that drifts slightly slower than the page as it scrolls past. */
+/** An image that drifts slightly slower than the page as it scrolls past (still for reduced motion). */
 export function ParallaxImage({
   src,
   alt,
@@ -80,10 +80,11 @@ export function ParallaxImage({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [-amount, amount]);
+  const reduce = useReducedMotion();
+  const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-amount, amount]);
   return (
     <div ref={ref} className={`overflow-hidden ${className ?? ""}`}>
-      <motion.div style={{ y }} className="scale-[1.12]">
+      <motion.div style={{ y }} className={reduce ? "" : "scale-[1.12]"}>
         <Image src={src} alt={alt} width={width} height={height} sizes={sizes} preload={preload} loading={preload ? "eager" : undefined} className="h-auto w-full" />
       </motion.div>
     </div>

@@ -3,12 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { Reveal } from "@/components/Reveal";
-import { Fade } from "@/components/Intro";
+import { Reveal, RevealMask } from "@/components/Reveal";
+import { Fade, Unveil } from "@/components/Intro";
 import { InViewVideo } from "@/components/Media";
 import { ContactForm } from "@/components/ContactForm";
 import { projectBySlug } from "@/content/projects";
 import { CeremonyExplorer, InvitePreview } from "./Interactive";
+import { cormorant } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Wedding websites & digital invitations",
@@ -69,82 +70,82 @@ const faqs = [
 export default function Weddings() {
   return (
     <>
-      <Nav tone="light" />
-      <main id="main" className="bg-ivory text-maroon">
+      <Nav />
+      <main id="main" className={`${cormorant.variable} text-charcoal`}>
         {/* hero */}
         <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
-          <Image src="/weddings/flora-tl.webp" alt="" width={420} height={338} sizes="320px" className="pointer-events-none absolute -top-10 -left-16 w-56 opacity-80 md:w-80" />
+          <Image src="/weddings/flora-tl.webp" alt="" width={420} height={338} sizes="320px" className="pointer-events-none absolute top-14 -left-24 w-48 opacity-70 md:top-20 md:w-72" />
           <Image src="/weddings/flora-br.webp" alt="" width={420} height={314} sizes="320px" className="pointer-events-none absolute -right-16 bottom-0 w-56 opacity-70 md:w-80" />
           <div className="shell relative grid gap-14 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-6">
               <Fade>
-                <p className="eyebrow text-gold">Rythmn AI · Wedding websites & digital invitations</p>
+                <p className="kicker text-clay">Rythmn AI · Wedding websites & digital invitations</p>
               </Fade>
               <Fade d={0.1}>
-                <h1 className="mt-6 font-wedding text-[clamp(3rem,6.6vw,5.8rem)] leading-[0.98] font-medium">
-                  A wedding website as <em className="text-gold">beautiful</em> as the wedding.
+                <h1 className="mt-7 font-wedding text-[clamp(3.2rem,7.2vw,6.8rem)] leading-[0.94] font-medium tracking-[-0.01em] text-forest">
+                  A wedding website as <em className="text-terracotta">beautiful</em> as the wedding.
                 </h1>
               </Fade>
               <Fade d={0.18}>
-                <p className="mt-6 max-w-[48ch] text-[18px] leading-relaxed text-maroon/75">
+                <p className="mt-6 max-w-[48ch] text-[18px] leading-relaxed text-muted">
                   Personalised invitations and wedding sites with the two of you illustrated in every ceremony — schedules, countdowns,
                   maps and RSVPs your guests open again and again. Designed for Indian weddings, built for phones and WhatsApp.
                 </p>
               </Fade>
               <Fade d={0.26} className="mt-9 flex flex-wrap gap-3">
-                <Link href="#enquire" className="btn bg-maroon text-ivory hover:bg-[#470a17]">
+                <Link href="#enquire" className="btn-primary">
                   Plan your wedding website <span aria-hidden>→</span>
                 </Link>
-                <a href={live.url} target="_blank" rel="noopener noreferrer" className="btn border border-maroon/25 hover:border-maroon/60">
+                <a href={live.url} target="_blank" rel="noopener noreferrer" className="btn-outline">
                   See a live wedding site ↗
                 </a>
               </Fade>
             </div>
-            <Fade d={0.18} className="relative lg:col-span-6">
+            <Unveil d={0.2} className="relative lg:col-span-6">
               <div className="relative">
-                <div className="overflow-hidden rounded-[20px] border border-gold/40 shadow-[0_40px_80px_-40px_rgb(91_15_30/0.45)]">
+                <div className="overflow-hidden rounded-[6px] border border-line-strong shadow-[0_40px_80px_-40px_rgb(37_39_32/0.4)]">
                   <Image src="/work/wedding/wedding-hero.webp" alt={live.hero.alt} width={1800} height={1125} preload loading="eager" sizes="(min-width: 1024px) 45vw, 100vw" className="h-auto w-full" />
                 </div>
-                <div className="absolute -bottom-10 -left-4 w-[30%] overflow-hidden rounded-[22px] border-[5px] border-white shadow-2xl sm:-left-10">
+                <div className="absolute -bottom-10 -left-4 w-[30%] overflow-hidden rounded-[18px] border-[5px] border-ivory shadow-[0_30px_50px_-28px_rgb(37_39_32/0.55)] sm:-left-10">
                   <Image src="/work/wedding/wedding-mobile-intro.webp" alt={live.mobile.alt} width={780} height={1688} sizes="200px" className="h-auto w-full" />
                 </div>
               </div>
-            </Fade>
+            </Unveil>
           </div>
         </section>
 
         {/* live project */}
-        <section aria-labelledby="live-h" className="border-y border-gold/25 bg-[#f6ede0] py-20 md:py-28">
+        <section aria-labelledby="live-h" className="border-y border-line bg-sand-2 py-20 md:py-28">
           <div className="shell">
             <Reveal className="grid gap-6 md:grid-cols-12 md:items-end">
               <div className="md:col-span-7">
-                <p className="eyebrow text-gold">Live wedding · Alwar, November 2026</p>
-                <h2 id="live-h" className="mt-4 font-wedding text-[clamp(2.4rem,4.6vw,4rem)] leading-none font-medium">
-                  Romit & Ayushi <span className="text-gold italic">#ROHI</span>
+                <p className="kicker text-clay">Live wedding · Alwar, November 2026</p>
+                <h2 id="live-h" className="mt-4 font-wedding text-[clamp(2.6rem,5.4vw,4.8rem)] leading-[0.95] font-medium text-forest">
+                  Romit & Ayushi <span className="text-clay italic">#ROHI</span>
                 </h2>
               </div>
-              <p className="text-[16px] leading-relaxed text-maroon/75 md:col-span-5">
+              <p className="text-[16px] leading-relaxed text-muted md:col-span-5">
                 Two days, seven ceremonies, one resort in the Aravalli hills. The site opens on a Ganesh invocation and an invitation card,
                 then walks guests through every ceremony. Family names and phone numbers are hidden in these captures.
               </p>
             </Reveal>
-            <Reveal className="mt-12 overflow-hidden rounded-[20px] border border-gold/40 bg-white p-2">
-              <InViewVideo src={live.video.src} poster={live.video.poster} label="Screen recording of the Romit & Ayushi wedding website" className="aspect-[16/10] w-full rounded-[14px] object-cover object-top" />
-            </Reveal>
+            <RevealMask className="mt-12 overflow-hidden rounded-[6px] border border-line-strong bg-ivory">
+              <InViewVideo src={live.video.src} poster={live.video.poster} label="Screen recording of the Romit & Ayushi wedding website" className="aspect-[16/10] w-full object-cover object-top" />
+            </RevealMask>
             <div className="mt-6 grid gap-6 md:grid-cols-3">
               {live.shots.slice(1, 4).map((s, i) => (
                 <Reveal key={s.src} delay={i * 0.08}>
                   <figure>
-                    <div className="overflow-hidden rounded-[14px] border border-gold/30">
+                    <div className="overflow-hidden rounded-[4px] border border-line-strong">
                       <Image src={s.src} alt={s.alt} width={1800} height={1125} sizes="(min-width: 768px) 33vw, 100vw" className="h-auto w-full" />
                     </div>
-                    <figcaption className="mt-2 text-[13px] text-maroon/80">{s.alt}</figcaption>
+                    <figcaption className="mt-2 text-[13px] text-muted">{s.alt}</figcaption>
                   </figure>
                 </Reveal>
               ))}
             </div>
             <Reveal className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-[15px]">
-              <a href={live.url} target="_blank" rel="noopener noreferrer" className="font-medium link-underline">
+              <a href={live.url} target="_blank" rel="noopener noreferrer" className="font-medium link-rule">
                 Open romitayushi.in ↗
               </a>
               <Link href={`/work/${live.slug}`} className="link-underline">
@@ -158,8 +159,8 @@ export default function Weddings() {
         <section aria-labelledby="cer-h" className="py-20 md:py-28">
           <div className="shell">
             <Reveal className="max-w-2xl">
-              <p className="eyebrow text-gold">Made for Indian weddings</p>
-              <h2 id="cer-h" className="mt-4 font-wedding text-[clamp(2.4rem,4.6vw,4rem)] leading-none font-medium">
+              <p className="kicker text-clay">Made for Indian weddings</p>
+              <h2 id="cer-h" className="mt-4 font-wedding text-[clamp(2.6rem,5.4vw,4.8rem)] leading-[0.95] font-medium text-forest">
                 Every ceremony gets its moment.
               </h2>
             </Reveal>
@@ -170,20 +171,20 @@ export default function Weddings() {
         </section>
 
         {/* features */}
-        <section aria-labelledby="feat-h" className="bg-maroon py-20 text-ivory md:py-28">
+        <section aria-labelledby="feat-h" className="on-forest relative bg-forest py-20 text-ivory md:py-28 grain">
           <div className="shell">
             <Reveal className="max-w-2xl">
-              <p className="eyebrow text-[#e6c27a]">What’s included</p>
-              <h2 id="feat-h" className="mt-4 font-wedding text-[clamp(2.4rem,4.6vw,4rem)] leading-none font-medium">
+              <p className="kicker text-clay-soft">What’s included</p>
+              <h2 id="feat-h" className="mt-4 font-wedding text-[clamp(2.6rem,5.4vw,4.8rem)] leading-[0.95] font-medium">
                 Everything your guests ask you on WhatsApp — answered once.
               </h2>
             </Reveal>
-            <ul className="mt-14 grid gap-px overflow-hidden rounded-[20px] bg-ivory/15 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="mt-14 grid gap-px overflow-hidden rounded-[6px] bg-ivory/20 sm:grid-cols-2 lg:grid-cols-4">
               {features.map(([t, d], i) => (
-                <Reveal as="li" key={t} delay={(i % 4) * 0.05} className="bg-maroon p-7">
-                  <span aria-hidden className="text-[#e6c27a]">✦</span>
+                <Reveal as="li" key={t} delay={(i % 4) * 0.05} className="bg-forest p-7">
+                  <span aria-hidden className="text-clay-soft">✦</span>
                   <h3 className="mt-3 font-wedding text-[24px] leading-tight">{t}</h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-ivory/70">{d}</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-sand">{d}</p>
                 </Reveal>
               ))}
             </ul>
@@ -194,11 +195,11 @@ export default function Weddings() {
         <section aria-labelledby="try-h" className="py-20 md:py-28">
           <div className="shell">
             <Reveal className="max-w-2xl">
-              <p className="eyebrow text-gold">Try it</p>
-              <h2 id="try-h" className="mt-4 font-wedding text-[clamp(2.4rem,4.6vw,4rem)] leading-none font-medium">
+              <p className="kicker text-clay">Try it</p>
+              <h2 id="try-h" className="mt-4 font-wedding text-[clamp(2.6rem,5.4vw,4.8rem)] leading-[0.95] font-medium text-forest">
                 Put your names on it.
               </h2>
-              <p className="mt-4 text-[16px] text-maroon/70">A quick taste of the invitation card and countdown. Your real one is designed from scratch around you.</p>
+              <p className="mt-4 text-[16px] text-muted">A quick taste of the invitation card and countdown. Your real one is designed from scratch around you.</p>
             </Reveal>
             <div className="mt-12">
               <InvitePreview />
@@ -207,16 +208,16 @@ export default function Weddings() {
         </section>
 
         {/* packages */}
-        <section id="packages" aria-labelledby="pk-h" className="scroll-mt-20 border-t border-gold/25 bg-[#f6ede0] py-20 md:py-28">
+        <section id="packages" aria-labelledby="pk-h" className="scroll-mt-20 border-t border-line bg-sand-2 py-20 md:py-28">
           <div className="shell">
             <Reveal className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
               <div>
-                <p className="eyebrow text-gold">Packages</p>
-                <h2 id="pk-h" className="mt-4 font-wedding text-[clamp(2.4rem,4.6vw,4rem)] leading-none font-medium">
+                <p className="kicker text-clay">Packages</p>
+                <h2 id="pk-h" className="mt-4 font-wedding text-[clamp(2.6rem,5.4vw,4.8rem)] leading-[0.95] font-medium text-forest">
                   Choose a starting point.
                 </h2>
               </div>
-              <p className="max-w-[42ch] text-[15px] text-maroon/70">
+              <p className="max-w-[42ch] text-[15px] text-muted">
                 Every wedding is different, so every quote is too. Tell us about yours and we’ll send a fixed price.
               </p>
             </Reveal>
@@ -225,19 +226,19 @@ export default function Weddings() {
                 <Reveal
                   key={p.name}
                   delay={i * 0.08}
-                  className={`flex flex-col rounded-[24px] border p-8 ${p.featured ? "border-maroon bg-maroon text-ivory" : "border-gold/35 bg-ivory"}`}
+                  className={`flex flex-col rounded-[6px] border p-8 ${p.featured ? "on-forest border-forest bg-forest text-ivory" : "border-line-strong bg-ivory"}`}
                 >
                   <h3 className="font-wedding text-[34px] leading-none">{p.name}</h3>
-                  <p className={`mt-3 text-[15px] leading-relaxed ${p.featured ? "text-ivory/75" : "text-maroon/70"}`}>{p.desc}</p>
+                  <p className={`mt-3 text-[15px] leading-relaxed ${p.featured ? "text-sand" : "text-muted"}`}>{p.desc}</p>
                   <ul className="mt-6 flex-1 space-y-2.5">
                     {p.items.map((it) => (
                       <li key={it} className="flex gap-3 text-[14px]">
-                        <span aria-hidden className={p.featured ? "text-[#e6c27a]" : "text-gold"}>✦</span>
+                        <span aria-hidden className={p.featured ? "text-clay-soft" : "text-clay"}>✦</span>
                         {it}
                       </li>
                     ))}
                   </ul>
-                  <div className={`mt-8 flex items-center justify-between border-t pt-5 ${p.featured ? "border-ivory/20" : "border-gold/30"}`}>
+                  <div className={`mt-8 flex items-center justify-between border-t pt-5 ${p.featured ? "border-ivory/20" : "border-line-strong"}`}>
                     <span className="font-wedding text-[20px] italic">Custom quote</span>
                     <Link href="#enquire" className="text-[14px] font-medium link-underline" aria-label={`Enquire about the ${p.name} package`}>
                       Enquire →
@@ -254,18 +255,18 @@ export default function Weddings() {
           <div className="shell grid gap-16 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <Reveal>
-                <p className="eyebrow text-gold">How it works</p>
-                <h2 id="how-h" className="mt-4 font-wedding text-[clamp(2.2rem,4vw,3.4rem)] leading-none font-medium">
+                <p className="kicker text-clay">How it works</p>
+                <h2 id="how-h" className="mt-4 font-wedding text-[clamp(2.4rem,4.4vw,3.8rem)] leading-[0.95] font-medium text-forest">
                   From your story to every guest’s phone.
                 </h2>
               </Reveal>
               <ol className="mt-10 space-y-6">
                 {steps.map(([t, d], i) => (
                   <Reveal as="li" key={t} delay={i * 0.05} className="flex gap-5">
-                    <span className="font-wedding text-[28px] leading-none text-gold italic">{i + 1}</span>
+                    <span className="font-wedding text-[28px] leading-none text-clay italic">{i + 1}</span>
                     <div>
                       <h3 className="text-[17px] font-medium">{t}</h3>
-                      <p className="mt-1 text-[14px] text-maroon/70">{d}</p>
+                      <p className="mt-1 text-[14px] text-muted">{d}</p>
                     </div>
                   </Reveal>
                 ))}
@@ -273,16 +274,16 @@ export default function Weddings() {
             </div>
             <div className="lg:col-span-6 lg:col-start-7">
               <Reveal>
-                <p className="eyebrow text-gold">Questions couples ask</p>
+                <p className="kicker text-clay">Questions couples ask</p>
               </Reveal>
-              <div className="mt-6 divide-y divide-gold/30 border-y border-gold/30">
+              <div className="mt-6 divide-y divide-line-strong border-y border-line-strong">
                 {faqs.map(([q, a]) => (
                   <details key={q} className="group py-5">
                     <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-wedding text-[22px] leading-snug">
                       {q}
-                      <span aria-hidden className="text-gold transition-transform duration-300 group-open:rotate-45">+</span>
+                      <span aria-hidden className="text-clay transition-transform duration-300 group-open:rotate-45">+</span>
                     </summary>
-                    <p className="mt-3 text-[15px] leading-relaxed text-maroon/75">{a}</p>
+                    <p className="mt-3 text-[15px] leading-relaxed text-muted">{a}</p>
                   </details>
                 ))}
               </div>
@@ -291,20 +292,20 @@ export default function Weddings() {
         </section>
 
         {/* enquire */}
-        <section id="enquire" aria-labelledby="enq-h" className="relative scroll-mt-20 overflow-hidden border-t border-gold/25 bg-blush/50 py-20 md:py-28">
+        <section id="enquire" aria-labelledby="enq-h" className="relative scroll-mt-20 overflow-hidden border-t border-line bg-sand-2 py-20 md:py-28">
           <div className="shell grid gap-12 lg:grid-cols-12">
             <Reveal className="lg:col-span-5">
-              <p className="eyebrow text-gold">Enquire</p>
-              <h2 id="enq-h" className="mt-4 font-wedding text-[clamp(2.6rem,5vw,4.4rem)] leading-none font-medium">
+              <p className="kicker text-clay">Enquire</p>
+              <h2 id="enq-h" className="mt-4 font-wedding text-[clamp(2.8rem,5.8vw,5.2rem)] leading-[0.95] font-medium text-forest">
                 Tell us about your wedding.
               </h2>
-              <p className="mt-5 max-w-[40ch] text-[16px] leading-relaxed text-maroon/75">
+              <p className="mt-5 max-w-[40ch] text-[16px] leading-relaxed text-muted">
                 Share the basics and we’ll come back with ideas and a fixed quote. Booking early leaves the most time for illustrations.
               </p>
             </Reveal>
             <Reveal delay={0.1} className="lg:col-span-7">
               <ContactForm
-                theme="wedding"
+                theme="ivory"
                 subject="Wedding website enquiry"
                 submitLabel="Send enquiry"
                 fields={[

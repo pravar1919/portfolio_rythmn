@@ -1,29 +1,46 @@
 @import "tailwindcss";
 
+/*
+ * Editorial Earth — one palette for the whole site (studio pages, weddings, birthdays).
+ * Contrast notes (WCAG, measured on the surface each token is meant for):
+ *   charcoal / ivory 13.3 · forest / ivory 10.6 · ivory / forest 10.6 · sand / forest 7.3
+ *   muted / ivory 5.7 · clay (#984A29) / ivory 5.5, / sand-2 4.55 · clay-soft (#E39A78) / forest 5.3
+ * `terracotta` itself (3.35 on ivory) is reserved for large display type, rules and marks;
+ * small text and button fills use `clay`, its deeper shade.
+ */
 @theme {
-  --color-ink: #0b1020;
-  --color-ink-2: #141a2e;
-  --color-night: #060914;
-  --color-paper: #f4f0e8;
-  --color-paper-2: #ebe5d8;
-  --color-line: rgb(11 16 32 / 0.12);
-  --color-muted: #5a5f6e;
-  --color-amber: #ffb302;
-  --color-amber-deep: #e08a00;
-  --color-blue: #0b6fe8;
+  --color-*: initial;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
 
-  /* weddings */
-  --color-ivory: #fbf6ee;
-  --color-maroon: #5b0f1e;
-  --color-gold: #a87a2e;
-  --color-blush: #f3d9d4;
-
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --font-display: var(--font-instrument), "Times New Roman", serif;
-  --font-wedding: var(--font-cormorant), "Times New Roman", serif;
+  --color-ivory: #f5f0e7;
+  --color-ivory-2: #ede5d8;
+  --color-sand: #d9c7ae;
+  --color-sand-2: #e7dac6;
+  --color-forest: #243b2f;
+  --color-forest-2: #2d4739;
+  --color-forest-3: #1b2e24;
+  --color-terracotta: #c56a45;
+  --color-clay: #984a29;
+  --color-clay-soft: #e39a78;
+  --color-charcoal: #252720;
+  --color-muted: #5a5b51;
+  --color-line: rgb(37 39 32 / 0.14);
+  --color-line-strong: rgb(37 39 32 / 0.32);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* `inline` so each utility reads the next/font variable where it is used: Cormorant is only
+   loaded (and its variable only set) on the weddings page. */
+@theme inline {
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-wedding: var(--font-cormorant), "Times New Roman", serif;
 }
 
 :root {
@@ -31,27 +48,33 @@
 }
 
 html {
+  /* iOS Safari ignores overflow on <body> alone; clipping here stops any stray sideways pan. */
+  overflow-x: clip;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01";
 }
 
 ::selection {
-  background: var(--color-amber);
-  color: var(--color-ink);
+  background: var(--color-forest);
+  color: var(--color-ivory);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-amber);
+  outline: 2px solid var(--color-clay);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 2px;
+}
+.on-forest :focus-visible {
+  outline-color: var(--color-sand);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -68,57 +91,64 @@ body {
 }
 
 @utility shell {
-  @apply mx-auto w-full max-w-[1320px] px-4 sm:px-8 lg:px-12;
+  @apply mx-auto w-full max-w-[1400px] px-4 sm:px-8 lg:px-12;
 }
 @utility eyebrow {
-  @apply font-mono text-[11px] font-medium tracking-[0.18em] uppercase;
+  @apply text-[11.5px] font-semibold tracking-[0.16em] uppercase;
 }
 @utility headline {
-  @apply font-display leading-[0.95] font-normal tracking-[-0.02em];
+  @apply font-display leading-[0.94] font-[350] tracking-[-0.025em];
+}
+/* Section labels: a short rule, then the label. */
+@utility kicker {
+  @apply eyebrow flex items-center gap-3 before:block before:h-px before:w-8 before:bg-current before:opacity-60;
 }
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3.5 text-[15px] font-medium transition-[transform,background-color,color,box-shadow] duration-300 ease-out-expo active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3.5 text-[15px] font-medium transition-[transform,background-color,color,border-color] duration-300 ease-out-expo active:scale-[0.98];
 }
-@utility btn-amber {
-  @apply btn bg-amber text-ink hover:bg-[#ffc23a] hover:shadow-[0_10px_40px_-10px_rgb(255_179_2/0.6)];
+/* The one call to action per view. */
+@utility btn-primary {
+  @apply btn bg-clay text-ivory hover:bg-forest;
 }
-@utility btn-ghost-dark {
-  @apply btn border border-white/20 text-white hover:border-white/50 hover:bg-white/5;
+.on-forest .btn-primary:hover {
+  background: var(--color-ivory);
+  color: var(--color-forest);
 }
-@utility btn-ink {
-  @apply btn bg-ink text-paper hover:bg-ink-2;
+@utility btn-forest {
+  @apply btn bg-forest text-ivory hover:bg-forest-3;
 }
-@utility btn-ghost {
-  @apply btn border border-line text-ink hover:border-ink/40 hover:bg-ink/[0.03];
+@utility btn-outline {
+  @apply btn border border-line-strong text-current hover:border-current;
+}
+@utility btn-outline-light {
+  @apply btn border border-ivory/30 text-ivory hover:border-ivory;
 }
 @utility link-underline {
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
-  transition: background-size 0.4s var(--ease-out-expo);
+  transition: background-size 0.5s var(--ease-out-expo);
   &:hover {
     background-size: 100% 1px;
   }
 }
-
-/* Continuous marquee of live domains */
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
+/* Always-underlined link whose rule thickens on hover. */
+@utility link-rule {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-thickness 0.3s var(--ease-out-expo);
+  &:hover {
+    text-decoration-thickness: 2px;
   }
 }
-.marquee {
-  animation: marquee 40s linear infinite;
-}
-.marquee:hover {
-  animation-play-state: paused;
-}
 
-/* Subtle film grain on dark sections */
+/* Paper texture for forest sections — a quiet, printed feel rather than a glow. */
 .grain::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.06;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -134,17 +164,59 @@ body {
     transform: translateY(16px);
   }
 }
+@keyframes unveil {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+}
 .anim-rise {
-  animation: rise 0.9s var(--ease-out-expo) both;
+  animation: rise 1s var(--ease-out-expo) both;
   animation-delay: var(--d, 0s);
 }
 .anim-fade {
-  animation: fade-up 0.7s var(--ease-out-expo) both;
+  animation: fade-up 0.8s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0s);
+}
+.anim-unveil {
+  animation: unveil 1.3s var(--ease-in-out-quart) both;
   animation-delay: var(--d, 0s);
 }
 @media (prefers-reduced-motion: reduce) {
   .anim-rise,
-  .anim-fade {
+  .anim-fade,
+  .anim-unveil {
     animation: none;
+  }
+}
+
+/* Page transitions (React <ViewTransition>, see app/layout.tsx). The outgoing page lifts away
+   quickly; the incoming one settles in a beat later. Shared project images morph between pages. */
+::view-transition-old(.page) {
+  animation: 220ms var(--ease-out-expo) both page-out;
+}
+::view-transition-new(.page) {
+  animation: 520ms var(--ease-out-expo) 120ms both page-in;
+}
+::view-transition-group(.morph) {
+  animation-duration: 650ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

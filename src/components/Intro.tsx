@@ -30,3 +30,12 @@ export function WordRise({ text, className, delay = 0 }: { text: string; classNa
     </span>
   );
 }
+
+/** Above-the-fold images wipe up into view from their bottom edge. */
+export function Unveil({ children, d = 0, className = "" }: FadeProps) {
+  return (
+    <div className={`anim-unveil ${className}`} style={{ "--d": `${d}s` } as React.CSSProperties}>
+      {children}
+    </div>
+  );
+}

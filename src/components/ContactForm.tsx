@@ -13,20 +13,20 @@ export function ContactForm({
   subject,
   fields,
   submitLabel = "Compose email",
-  theme = "dark",
+  theme = "forest",
 }: {
   subject: string;
   fields: Field[];
   submitLabel?: string;
-  theme?: "dark" | "light" | "wedding";
+  theme?: "forest" | "ivory";
 }) {
   const id = useId();
   const [sent, setSent] = useState(false);
 
+  // Underlined fields rather than boxes: the form reads like the rest of the page.
   const styles = {
-    dark: { label: "text-white/60", input: "border-white/15 bg-white/[0.04] text-white placeholder:text-white/30 focus:border-amber", btn: "btn-amber", note: "text-white/45" },
-    light: { label: "text-muted", input: "border-line bg-white text-ink placeholder:text-ink/30 focus:border-ink", btn: "btn-ink", note: "text-muted" },
-    wedding: { label: "text-maroon/70", input: "border-maroon/20 bg-white/70 text-maroon placeholder:text-maroon/30 focus:border-maroon", btn: "btn bg-maroon text-ivory hover:bg-[#470a17]", note: "text-maroon/80" },
+    forest: { label: "text-sand", input: "border-ivory/35 text-ivory placeholder:text-ivory/45 focus:border-ivory", option: "bg-forest text-ivory", wa: "btn-outline-light", note: "text-sand" },
+    ivory: { label: "text-charcoal/80", input: "border-line-strong text-charcoal placeholder:text-charcoal/40 focus:border-charcoal", option: "bg-ivory text-charcoal", wa: "btn-outline", note: "text-charcoal/80" },
   }[theme];
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -44,11 +44,11 @@ export function ContactForm({
   const wa = whatsappLink(`Hi Rythmn AI — ${subject}`);
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
+    <form onSubmit={onSubmit} className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
       {fields.map((f) => {
         const fid = `${id}-${f.name}`;
         const wide = f.type === "textarea" || f.type === "select";
-        const cls = `mt-2 w-full rounded-xl border px-4 py-3.5 text-[15px] outline-none transition-colors ${styles.input}`;
+        const cls = `mt-1 w-full rounded-none border-0 border-b bg-transparent px-0 py-3 text-[17px] outline-none transition-[border-color,box-shadow] focus-visible:outline-none focus:shadow-[0_1px_0_0_currentColor] ${styles.input}`;
         return (
           <div key={f.name} className={wide ? "sm:col-span-2" : ""}>
             <label htmlFor={fid} className={`eyebrow ${styles.label}`}>
@@ -59,11 +59,13 @@ export function ContactForm({
               <textarea id={fid} name={f.name} required={f.required} rows={5} placeholder={f.placeholder} className={`${cls} resize-y`} />
             ) : f.type === "select" ? (
               <select id={fid} name={f.name} required={f.required} className={cls} defaultValue="">
-                <option value="" disabled>
+                <option value="" disabled className={styles.option}>
                   Choose one
                 </option>
                 {f.options?.map((o) => (
-                  <option key={o}>{o}</option>
+                  <option key={o} className={styles.option}>
+                    {o}
+                  </option>
                 ))}
               </select>
             ) : (
@@ -80,12 +82,12 @@ export function ContactForm({
           </div>
         );
       })}
-      <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center">
-        <button type="submit" className={styles.btn}>
+      <div className="flex flex-col gap-4 pt-2 sm:col-span-2 sm:flex-row sm:items-center">
+        <button type="submit" className="btn-primary">
           {submitLabel} <span aria-hidden>→</span>
         </button>
         {wa && (
-          <a href={wa} target="_blank" rel="noopener noreferrer" className="btn border border-current/20">
+          <a href={wa} target="_blank" rel="noopener noreferrer" className={styles.wa}>
             WhatsApp us
           </a>
         )}

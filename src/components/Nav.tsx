@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { Wordmark } from "@/components/Wordmark";
 
 const links = [
   { href: "/#work", label: "Work" },
@@ -12,13 +12,13 @@ const links = [
   { href: "/#celebrations", label: "Celebrations" },
 ];
 
-/** `tone` is the colour of the page behind the bar before it turns solid on scroll. */
-export function Nav({ tone = "dark" }: { tone?: "dark" | "light" }) {
+/** Sits on the ivory canvas everywhere; gains a hairline and a frosted ground once scrolled. */
+export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const on = () => setScrolled(scrollY > 40);
+    const on = () => setScrolled(scrollY > 24);
     on();
     addEventListener("scroll", on, { passive: true });
     return () => removeEventListener("scroll", on);
@@ -28,28 +28,29 @@ export function Nav({ tone = "dark" }: { tone?: "dark" | "light" }) {
     if (!open) return;
     const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     addEventListener("keydown", esc);
-    return () => removeEventListener("keydown", esc);
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      removeEventListener("keydown", esc);
+      document.documentElement.style.overflow = "";
+    };
   }, [open]);
 
-  const dark = tone === "dark" && !scrolled;
-  const solid = scrolled
-    ? "bg-paper/85 text-ink shadow-[0_1px_0_rgb(11_16_32/0.08)] backdrop-blur-xl"
-    : dark
-      ? "text-white"
-      : "text-ink";
-
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-[background-color,color,box-shadow] duration-500 ${solid}`}>
+    <header
+      style={{ viewTransitionName: "site-nav" }}
+      className={`fixed inset-x-0 top-0 z-50 text-charcoal transition-[background-color,box-shadow] duration-500 ${
+        scrolled || open ? "bg-ivory/92 shadow-[0_1px_0_var(--color-line)] backdrop-blur-md" : ""
+      }`}
+    >
       <nav aria-label="Main" className="shell flex h-16 items-center justify-between gap-6 md:h-20">
-        <Link href="/" className="flex items-center gap-2.5" aria-label="Rythmn AI, home">
-          <Image src="/brand/logo-mark.png" alt="" width={39} height={32} className="h-8 w-auto" />
-          <span className="text-[17px] font-semibold tracking-tight">Rythmn AI</span>
+        <Link href="/" className="py-2" aria-label="Rythmn AI, home" onClick={() => setOpen(false)}>
+          <Wordmark />
         </Link>
 
-        <ul className="hidden items-center gap-8 text-[14px] md:flex">
+        <ul className="hidden items-center gap-9 text-[14.5px] md:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <Link href={l.href} className="link-underline py-1 opacity-80 transition-opacity hover:opacity-100">
+              <Link href={l.href} className="link-underline py-1">
                 {l.label}
               </Link>
             </li>
@@ -57,12 +58,12 @@ export function Nav({ tone = "dark" }: { tone?: "dark" | "light" }) {
         </ul>
 
         <div className="flex items-center gap-3">
-          <Link href="/#contact" className="btn-amber hidden !px-5 !py-2.5 text-[14px] sm:inline-flex">
+          <Link href="/#contact" className="btn-primary hidden !px-5 !py-2.5 text-[14px] sm:inline-flex">
             Start a project
           </Link>
           <button
             type="button"
-            className="grid size-10 place-items-center rounded-full border border-current/20 md:hidden"
+            className="grid size-11 place-items-center rounded-full border border-line-strong md:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -80,21 +81,36 @@ export function Nav({ tone = "dark" }: { tone?: "dark" | "light" }) {
         {open && (
           <motion.div
             id="mobile-menu"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3 }}
-            className="border-t border-line bg-paper text-ink md:hidden"
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+            className="h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-ivory md:hidden"
           >
-            <ul className="shell flex flex-col py-4">
-              {[...links, { href: "/#contact", label: "Start a project" }].map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} onClick={() => setOpen(false)} className="block py-3 font-display text-3xl">
+            <ul className="shell flex flex-col pt-6 pb-10">
+              {[...links, { href: "/#contact", label: "Start a project" }].map((l, i) => (
+                <motion.li
+                  key={l.href}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 + i * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="border-b border-line"
+                >
+                  <Link href={l.href} onClick={() => setOpen(false)} className="flex items-baseline justify-between py-4 font-display text-[2.4rem] leading-none">
                     {l.label}
+                    <span className="text-[13px] font-sans text-muted">0{i + 1}</span>
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
+            <div className="shell flex gap-6 text-[14px] text-muted">
+              <Link href="/weddings" onClick={() => setOpen(false)} className="link-rule">
+                Wedding websites
+              </Link>
+              <Link href="/birthdays" onClick={() => setOpen(false)} className="link-rule">
+                Birthday microsites
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

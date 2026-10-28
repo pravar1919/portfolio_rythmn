@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * The hero's signature: a field of bars moving like a slow waveform — the "rhythm" in Rythmn.
+ * The hero's signature: a field of hairlines moving like a slow waveform — the "rhythm" in Rythmn.
  * The wave swells toward the pointer. Pauses off-screen; draws a single still frame for
  * reduced-motion users.
  */
@@ -31,7 +31,7 @@ export function HeroPulse({ className }: { className?: string }) {
 
     const draw = (t: number) => {
       ctx.clearRect(0, 0, w, h);
-      const gap = w < 640 ? 7 : 9;
+      const gap = w < 640 ? 6 : 8;
       const n = Math.floor(w / gap);
       pointer.x += (pointer.target - pointer.x) * 0.08;
       pointer.strength += ((pointer.target >= 0 ? 1 : 0) - pointer.strength) * 0.05;
@@ -52,8 +52,9 @@ export function HeroPulse({ className }: { className?: string }) {
         }
         const bar = Math.max(2, a * h * 0.9);
         const hot = Math.min(1, Math.max(0, a - 0.45) * 2.2);
-        ctx.fillStyle = `rgba(${255},${Math.round(179 + 40 * (1 - hot))},${Math.round(2 + 120 * (1 - hot))},${0.18 + hot * 0.7})`;
-        ctx.fillRect(x - 1, (h - bar) / 2, 2, bar);
+        // forest at rest, warming to terracotta at the crest
+        ctx.fillStyle = `rgba(${Math.round(36 + 161 * hot)},${Math.round(59 + 47 * hot)},${Math.round(47 + 22 * hot)},${0.22 + hot * 0.6})`;
+        ctx.fillRect(x - 0.5, (h - bar) / 2, 1, bar);
       }
     };
 

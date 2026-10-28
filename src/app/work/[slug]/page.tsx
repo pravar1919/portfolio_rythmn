@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, ViewTransition } from "react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { Reveal } from "@/components/Reveal";
+import { Reveal, RevealMask } from "@/components/Reveal";
 import { Fade, WordRise } from "@/components/Intro";
 import { InViewVideo, ParallaxImage } from "@/components/Media";
 import { projectBySlug, projects } from "@/content/projects";
@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
 export default function CaseStudyPage({ params }: PageProps<"/work/[slug]">) {
   return (
     <>
-      <Nav tone="dark" />
-      <Suspense fallback={<main id="main" className="min-h-[100svh] bg-night" />}>
+      <Nav />
+      <Suspense fallback={<main id="main" className="min-h-[100svh]" />}>
         <CaseStudy params={params} />
       </Suspense>
       <Footer />
@@ -47,214 +47,223 @@ async function CaseStudy({ params }: { params: PageProps<"/work/[slug]">["params
   const next = projects[(i + 1) % projects.length];
   const celebration = p.kind === "Celebration";
   const landing = p.slug === "bro-exe" ? "/birthdays" : "/weddings";
+  const domain = p.url.replace("https://", "");
 
   return (
     <main id="main">
-        <header className="relative overflow-hidden bg-night pt-32 pb-16 text-white md:pt-40 md:pb-24 grain">
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-40"
-            style={{ background: `radial-gradient(60% 70% at 85% 10%, ${p.accent}55, transparent 60%)` }}
-          />
-          <div className="shell relative">
-            <Fade>
-              <nav aria-label="Breadcrumb" className="eyebrow flex flex-wrap gap-3 text-white/50">
-                <Link href="/#work" className="hover:text-white">
-                  Work
-                </Link>
-                <span aria-hidden>/</span>
-                <span className="text-amber">{p.kind}</span>
-                <span aria-hidden>·</span>
-                <span>{p.sector}</span>
-              </nav>
-            </Fade>
-            <h1 className="headline mt-8 text-[clamp(3rem,8vw,7.5rem)]">
-              <WordRise text={p.name} />
-            </h1>
-            <Fade d={0.25} className="mt-8 grid gap-8 lg:grid-cols-12">
-              <p className="text-[clamp(1.15rem,1.7vw,1.5rem)] leading-snug text-white/75 lg:col-span-8">{p.title}</p>
-              <div className="flex items-start gap-3 lg:col-span-4 lg:justify-end">
-                <a href={p.url} target="_blank" rel="noopener noreferrer" className="btn-amber">
-                  Visit {p.url.replace("https://", "")} <span aria-hidden>↗</span>
-                </a>
-              </div>
-            </Fade>
-          </div>
-        </header>
+      <header className="pt-28 pb-14 md:pt-36 md:pb-20">
+        <div className="shell">
+          <Fade>
+            <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-line pb-5 text-[12.5px] text-muted">
+              <Link href="/#work" className="kicker text-clay hover:text-charcoal">
+                Work
+              </Link>
+              <span aria-hidden>/</span>
+              <span>{p.kind}</span>
+              <span aria-hidden>·</span>
+              <span>{p.sector}</span>
+              <span className="ml-auto hidden font-mono sm:inline">
+                Case study {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+              </span>
+            </nav>
+          </Fade>
+          <h1 className="headline mt-10 text-[clamp(3.2rem,9vw,9rem)] md:mt-14">
+            <WordRise text={p.name} />
+          </h1>
+          <Fade d={0.25} className="mt-10 grid gap-8 lg:grid-cols-12">
+            <p className="font-display text-[clamp(1.35rem,2.2vw,2rem)] leading-[1.2] tracking-[-0.01em] text-charcoal/90 lg:col-span-7">{p.title}</p>
+            <div className="flex items-start gap-3 lg:col-span-4 lg:col-start-9 lg:justify-end">
+              <a href={p.url} target="_blank" rel="noopener noreferrer" className="btn-primary max-w-full">
+                <span className="truncate">Visit {domain}</span> <span aria-hidden>↗</span>
+              </a>
+            </div>
+          </Fade>
+        </div>
+      </header>
 
-        <div className="bg-night pb-4">
-          <div className="shell">
+      <div className="shell">
+        <ViewTransition name={`project-${p.slug}`} share="morph" default="none">
+          <div>
             <ParallaxImage
               src={p.hero.src}
               alt={p.hero.alt}
               width={1800}
               height={1125}
               preload
-              sizes="(min-width: 1320px) 1240px, 100vw"
-              className="rounded-[20px] ring-1 ring-white/10"
+              amount={40}
+              sizes="(min-width: 1400px) 1304px, 100vw"
+              className="rounded-[6px] border border-line bg-sand-2"
             />
           </div>
+        </ViewTransition>
+      </div>
+
+      <section aria-label="Project summary">
+        <div className="shell grid gap-14 py-20 md:py-32 lg:grid-cols-12">
+          <Reveal className="lg:col-span-3">
+            <dl className="space-y-6 text-[14px]">
+              <Meta k="Client" v={p.kind === "Our product" ? "Rythmn AI (our own product)" : p.name} />
+              <Meta k="Sector" v={p.sector} />
+              <Meta k="Live at" v={<a href={p.url} target="_blank" rel="noopener noreferrer" className="link-rule">{domain} ↗</a>} />
+              <Meta k="Stack" v={p.stack.join(" · ")} />
+            </dl>
+          </Reveal>
+          <div className="space-y-14 lg:col-span-8 lg:col-start-5">
+            <Reveal>
+              <h2 className="kicker text-clay">The challenge</h2>
+              <p className="mt-5 font-display text-[clamp(1.4rem,2.2vw,2rem)] leading-[1.25] tracking-[-0.01em]">{p.challenge}</p>
+            </Reveal>
+            <Reveal>
+              <h2 className="kicker text-clay">What we built</h2>
+              <p className="mt-5 text-[clamp(1.08rem,1.4vw,1.25rem)] leading-relaxed text-charcoal/85">{p.solution}</p>
+            </Reveal>
+          </div>
         </div>
+      </section>
 
-        <section aria-label="Project summary" className="border-b border-line">
-          <div className="shell grid gap-12 py-20 md:py-28 lg:grid-cols-12">
-            <Reveal className="lg:col-span-4">
-              <dl className="space-y-6 text-[14px]">
-                <Meta k="Client" v={p.kind === "Our product" ? "Rythmn AI (our own product)" : p.name} />
-                <Meta k="Sector" v={p.sector} />
-                <Meta k="Live at" v={<a href={p.url} target="_blank" rel="noopener noreferrer" className="link-underline">{p.url.replace("https://", "")} ↗</a>} />
-                <Meta k="Stack" v={p.stack.join(" · ")} />
-              </dl>
-            </Reveal>
-            <div className="space-y-12 lg:col-span-7 lg:col-start-6">
-              <Reveal>
-                <h2 className="eyebrow text-muted">The challenge</h2>
-                <p className="mt-4 text-[clamp(1.15rem,1.5vw,1.35rem)] leading-relaxed">{p.challenge}</p>
+      <section aria-labelledby="outcomes-h" className="pb-20 md:pb-32">
+        <div className="shell">
+          <Reveal>
+            <h2 id="outcomes-h" className="kicker text-muted">
+              Outcomes
+            </h2>
+          </Reveal>
+          <ol className="mt-8 border-t border-charcoal">
+            {p.outcomes.map((o, n) => (
+              <Reveal as="li" key={o} delay={n * 0.06} className="grid gap-4 border-b border-line py-8 md:grid-cols-12 md:py-10">
+                <span className="font-display text-[1.5rem] leading-none text-terracotta italic md:col-span-1">0{n + 1}</span>
+                <p className="headline text-[clamp(1.7rem,3.2vw,3rem)] leading-[1.08] md:col-span-10">{o}</p>
               </Reveal>
-              <Reveal>
-                <h2 className="eyebrow text-muted">What we built</h2>
-                <p className="mt-4 text-[clamp(1.15rem,1.5vw,1.35rem)] leading-relaxed">{p.solution}</p>
-              </Reveal>
-            </div>
-          </div>
-        </section>
+            ))}
+          </ol>
+        </div>
+      </section>
 
-        <section aria-labelledby="outcomes-h" className="py-20 md:py-28">
-          <div className="shell">
-            <Reveal>
-              <h2 id="outcomes-h" className="eyebrow text-muted">
-                Outcomes
+      <section aria-labelledby="demo-h" className="on-forest relative bg-forest py-20 text-ivory md:py-32 grain">
+        <div className="shell relative">
+          <Reveal className="grid gap-6 md:grid-cols-12 md:items-end">
+            <div className="md:col-span-7">
+              <p className="kicker text-clay-soft">Screen recording</p>
+              <h2 id="demo-h" className="headline mt-5 text-[clamp(2.4rem,4.6vw,4.4rem)]">
+                The live site, <em>unedited.</em>
               </h2>
-            </Reveal>
-            <ol className="mt-8 border-t border-ink">
-              {p.outcomes.map((o, n) => (
-                <Reveal as="li" key={o} delay={n * 0.06} className="grid gap-4 border-b border-line py-8 md:grid-cols-12">
-                  <span className="font-mono text-[12px] md:col-span-1" style={{ color: p.accent }}>
-                    0{n + 1}
-                  </span>
-                  <p className="headline text-[clamp(1.7rem,3vw,2.7rem)] leading-[1.08] md:col-span-11">{o}</p>
-                </Reveal>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section aria-labelledby="demo-h" className="relative bg-night py-20 text-white md:py-28 grain">
-          <div className="shell">
-            <Reveal className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-              <div>
-                <p className="eyebrow text-amber">Screen recording</p>
-                <h2 id="demo-h" className="headline mt-4 text-[clamp(2.2rem,4vw,3.6rem)]">
-                  The live site, unedited.
-                </h2>
+            </div>
+            <p className="max-w-[40ch] text-[14.5px] leading-relaxed text-sand md:col-span-4 md:col-start-9">
+              Recorded from {domain} in a desktop browser{celebration ? ", with private family details hidden" : ""}.
+            </p>
+          </Reveal>
+          <div className="mt-14 grid items-end gap-8 lg:grid-cols-12">
+            <RevealMask className="lg:col-span-9">
+              <InViewVideo
+                src={p.video.src}
+                poster={p.video.poster}
+                label={`Screen recording of ${p.name}`}
+                className="aspect-[16/10] w-full rounded-[6px] bg-forest-3 object-cover object-top"
+              />
+            </RevealMask>
+            <Reveal delay={0.15} className="mx-auto w-[min(250px,68vw)] lg:col-span-3 lg:w-full">
+              <div className="overflow-hidden rounded-[30px] border-[6px] border-forest-3 bg-forest-3 shadow-[0_40px_60px_-30px_rgb(0_0_0/0.6)]">
+                <Image src={p.mobile.src} alt={p.mobile.alt} width={780} height={1688} sizes="260px" className="h-auto w-full" />
               </div>
-              <p className="max-w-[40ch] text-[14px] text-white/50">
-                Recorded from {p.url.replace("https://", "")} in a desktop browser{celebration ? ", with private family details hidden" : ""}.
-              </p>
+              <p className="mt-4 text-center text-[12.5px] text-sand">On a phone</p>
             </Reveal>
-            <div className="mt-12 grid items-start gap-6 lg:grid-cols-12">
-              <Reveal className="overflow-hidden rounded-[18px] bg-ink-2 p-2 ring-1 ring-white/10 lg:col-span-9">
-                <InViewVideo
-                  src={p.video.src}
-                  poster={p.video.poster}
-                  label={`Screen recording of ${p.name}`}
-                  className="aspect-[16/10] w-full rounded-[12px] bg-night object-cover object-top"
-                />
-              </Reveal>
-              <Reveal delay={0.15} className="mx-auto w-[min(260px,70vw)] lg:col-span-3 lg:w-full">
-                <div className="overflow-hidden rounded-[34px] border-[6px] border-ink-2 bg-night shadow-2xl ring-1 ring-white/10">
-                  <Image src={p.mobile.src} alt={p.mobile.alt} width={780} height={1688} sizes="260px" className="h-auto w-full" />
-                </div>
-                <p className="mt-3 text-center font-mono text-[11px] text-white/40">On a phone</p>
-              </Reveal>
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section aria-labelledby="gallery-h" className="py-20 md:py-28">
-          <div className="shell">
-            <Reveal>
-              <h2 id="gallery-h" className="eyebrow text-muted">
-                Inside the product
-              </h2>
-            </Reveal>
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              {p.shots.map((s, n) => (
-                <Reveal key={s.src} delay={(n % 2) * 0.08} className={n === 0 && p.shots.length % 2 === 1 ? "md:col-span-2" : ""}>
-                  <figure>
-                    <div className="overflow-hidden rounded-[16px] ring-1 ring-line">
+      <section aria-labelledby="gallery-h" className="py-20 md:py-32">
+        <div className="shell">
+          <Reveal>
+            <h2 id="gallery-h" className="kicker text-muted">
+              Inside the product
+            </h2>
+          </Reveal>
+          <div className="mt-10 grid gap-x-8 gap-y-14 md:grid-cols-12">
+            {p.shots.map((s, n) => {
+              const wide = n === 0 && p.shots.length % 2 === 1;
+              // pairs alternate 7/5 and 5/7 columns, so the gallery reads as a spread rather than a grid
+              const k = n - (p.shots.length % 2);
+              const col = wide ? "md:col-span-12" : k % 2 === Math.floor(k / 2) % 2 ? "md:col-span-7" : "md:col-span-5 md:mt-24";
+              return (
+                <figure key={s.src} className={col}>
+                  <RevealMask delay={(n % 2) * 0.08}>
+                    <div className="overflow-hidden rounded-[6px] border border-line">
                       <Image
                         src={s.src}
                         alt={s.alt}
                         width={1800}
                         height={1125}
-                        sizes={n === 0 && p.shots.length % 2 === 1 ? "(min-width: 1320px) 1240px, 100vw" : "(min-width: 768px) 50vw, 100vw"}
-                        className="h-auto w-full transition-transform duration-[1.2s] ease-out-expo hover:scale-[1.02]"
+                        sizes={wide ? "(min-width: 1400px) 1304px, 100vw" : "(min-width: 768px) 58vw, 100vw"}
+                        className="h-auto w-full transition-transform duration-[1.4s] ease-out-expo hover:scale-[1.02]"
                       />
                     </div>
-                    <figcaption className="mt-3 text-[13px] text-muted">{s.alt}</figcaption>
-                  </figure>
-                </Reveal>
-              ))}
-            </div>
+                  </RevealMask>
+                  <figcaption className="mt-4 flex gap-3 text-[13.5px] leading-snug text-muted">
+                    <span className="font-mono text-clay">{String(n + 1).padStart(2, "0")}</span>
+                    {s.alt}
+                  </figcaption>
+                </figure>
+              );
+            })}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section aria-labelledby="eng-h" className="bg-paper-2 py-20 md:py-28">
-          <div className="shell grid gap-12 lg:grid-cols-12">
-            <Reveal className="lg:col-span-4">
-              <p className="eyebrow text-muted">Under the hood</p>
-              <h2 id="eng-h" className="headline mt-4 text-[clamp(2rem,3.4vw,3rem)]">
-                Engineering decisions that matter to the business.
-              </h2>
-            </Reveal>
-            <ul className="space-y-6 lg:col-span-7 lg:col-start-6">
-              {p.engineering.map((e, n) => (
-                <Reveal as="li" key={e} delay={n * 0.06} className="flex gap-5 border-t border-ink/15 pt-6 text-[17px] leading-relaxed">
-                  <span aria-hidden className="mt-2.5 size-2 shrink-0 rounded-full" style={{ background: p.accent }} />
-                  {e}
-                </Reveal>
-              ))}
-            </ul>
-          </div>
-        </section>
+      <section aria-labelledby="eng-h" className="bg-sand py-20 md:py-32">
+        <div className="shell grid gap-12 lg:grid-cols-12">
+          <Reveal className="lg:col-span-5">
+            <p className="kicker text-charcoal/80">Under the hood</p>
+            <h2 id="eng-h" className="headline mt-5 text-[clamp(2.2rem,3.8vw,3.6rem)]">
+              Engineering decisions that matter to the business.
+            </h2>
+          </Reveal>
+          <ul className="lg:col-span-6 lg:col-start-7">
+            {p.engineering.map((e, n) => (
+              <Reveal as="li" key={e} delay={n * 0.06} className="flex gap-5 border-t border-charcoal/25 py-6 text-[17px] leading-relaxed">
+                <span aria-hidden className="mt-[13px] h-px w-5 shrink-0 bg-clay" />
+                {e}
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-        <section className="py-20 md:py-28">
-          <div className="shell grid gap-6 md:grid-cols-2">
-            <Reveal className="flex flex-col justify-between rounded-[24px] bg-ink p-8 text-white md:p-12">
-              <h2 className="headline text-[clamp(2rem,3.4vw,3rem)]">
-                {celebration ? "Want one for your celebration?" : "Building something like this?"}
-              </h2>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href={celebration ? `${landing}#enquire` : "/#contact"} className="btn-amber">
-                  {celebration ? "See packages & enquire" : "Start a project"} <span aria-hidden>→</span>
-                </Link>
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <Link href={`/work/${next.slug}`} className="group block h-full overflow-hidden rounded-[24px] ring-1 ring-line">
-                <div className="relative aspect-[16/8] overflow-hidden">
-                  <Image
-                    src={next.hero.src}
-                    alt=""
-                    fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    className="object-cover object-top transition-transform duration-[1.2s] ease-out-expo group-hover:scale-[1.04]"
-                  />
-                </div>
-                <div className="flex items-center justify-between p-6">
-                  <div>
-                    <p className="eyebrow text-muted">Next case study</p>
-                    <p className="headline mt-2 text-[1.9rem]">{next.name}</p>
-                  </div>
-                  <span aria-hidden className="text-2xl transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
-                </div>
+      <section className="py-20 md:py-32">
+        <div className="shell grid gap-4 md:grid-cols-12">
+          <Reveal className="on-forest flex flex-col justify-between rounded-[6px] bg-forest p-8 text-ivory md:col-span-5 md:p-12">
+            <h2 className="headline text-[clamp(2.2rem,3.6vw,3.4rem)]">
+              {celebration ? "Want one for your celebration?" : "Building something like this?"}
+            </h2>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link href={celebration ? `${landing}#enquire` : "/#contact"} className="btn-primary">
+                {celebration ? "See packages & enquire" : "Start a project"} <span aria-hidden>→</span>
               </Link>
-            </Reveal>
-          </div>
-        </section>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1} className="md:col-span-7">
+            <Link href={`/work/${next.slug}`} className="group block h-full overflow-hidden rounded-[6px] border border-line">
+              <div className="relative aspect-[16/8] overflow-hidden bg-sand-2">
+                <Image
+                  src={next.hero.src}
+                  alt=""
+                  fill
+                  sizes="(min-width: 768px) 58vw, 100vw"
+                  className="object-cover object-top transition-transform duration-[1.4s] ease-out-expo group-hover:scale-[1.04]"
+                />
+              </div>
+              <div className="flex items-center justify-between gap-6 p-6 md:p-8">
+                <div>
+                  <p className="kicker text-muted">Next case study</p>
+                  <p className="headline mt-3 text-[clamp(1.9rem,3vw,2.6rem)]">{next.name}</p>
+                </div>
+                <span aria-hidden className="grid size-14 shrink-0 place-items-center rounded-full border border-line-strong text-xl transition-[transform,background-color,color] duration-500 ease-out-expo group-hover:translate-x-1 group-hover:bg-clay group-hover:text-ivory">
+                  →
+                </span>
+              </div>
+            </Link>
+          </Reveal>
+        </div>
+      </section>
     </main>
   );
 }
@@ -263,7 +272,7 @@ function Meta({ k, v }: { k: string; v: React.ReactNode }) {
   return (
     <div className="border-t border-line pt-3">
       <dt className="eyebrow text-muted">{k}</dt>
-      <dd className="mt-1.5 text-[15px]">{v}</dd>
+      <dd className="mt-2 text-[15px] leading-snug">{v}</dd>
     </div>
   );
 }

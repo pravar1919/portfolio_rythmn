@@ -1,23 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif, Cormorant_Garamond } from "next/font/google";
+import { ViewTransition } from "react";
+import { Fraunces, Schibsted_Grotesk } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { site } from "@/content/site";
 import "./globals.css";
 
-const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
-  weight: "400",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  axes: ["opsz"],
   style: ["normal", "italic"],
   subsets: ["latin"],
 });
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-});
+const schibsted = Schibsted_Grotesk({ variable: "--font-schibsted", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -33,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#060914",
+  themeColor: "#f5f0e7",
 };
 
 const orgJsonLd = {
@@ -57,18 +51,18 @@ const orgJsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geist.variable} ${geistMono.variable} ${instrument.variable} ${cormorant.variable}`}
-    >
+    <html lang="en" className={`${fraunces.variable} ${schibsted.variable}`}>
       <body className="min-h-dvh overflow-x-clip" suppressHydrationWarning>
         <a
           href="#main"
-          className="sr-only z-[100] rounded-br-lg bg-amber px-4 py-3 font-medium text-ink focus:not-sr-only focus:fixed focus:top-0 focus:left-0"
+          className="sr-only z-[100] rounded-br-lg bg-forest px-4 py-3 font-medium text-ivory focus:not-sr-only focus:fixed focus:top-0 focus:left-0"
         >
           Skip to content
         </a>
-        <Providers>{children}</Providers>
+        <Providers>
+          {/* Every route change crossfades the page; named project images morph (see globals.css). */}
+          <ViewTransition default="page">{children}</ViewTransition>
+        </Providers>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
