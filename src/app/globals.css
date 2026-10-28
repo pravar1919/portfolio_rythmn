@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
+@theme {
+  --color-ink: #0b1020;
+  --color-ink-2: #141a2e;
+  --color-night: #060914;
+  --color-paper: #f4f0e8;
+  --color-paper-2: #ebe5d8;
+  --color-line: rgb(11 16 32 / 0.12);
+  --color-muted: #5a5f6e;
+  --color-amber: #ffb302;
+  --color-amber-deep: #e08a00;
+  --color-blue: #0b6fe8;
+
+  /* weddings */
+  --color-ivory: #fbf6ee;
+  --color-maroon: #5b0f1e;
+  --color-gold: #a87a2e;
+  --color-blush: #f3d9d4;
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-instrument), "Times New Roman", serif;
+  --font-wedding: var(--font-cormorant), "Times New Roman", serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+::selection {
+  background: var(--color-amber);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility shell {
+  @apply mx-auto w-full max-w-[1320px] px-4 sm:px-8 lg:px-12;
+}
+@utility eyebrow {
+  @apply font-mono text-[11px] font-medium tracking-[0.18em] uppercase;
+}
+@utility headline {
+  @apply font-display leading-[0.95] font-normal tracking-[-0.02em];
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3.5 text-[15px] font-medium transition-[transform,background-color,color,box-shadow] duration-300 ease-out-expo active:scale-[0.98];
+}
+@utility btn-amber {
+  @apply btn bg-amber text-ink hover:bg-[#ffc23a] hover:shadow-[0_10px_40px_-10px_rgb(255_179_2/0.6)];
+}
+@utility btn-ghost-dark {
+  @apply btn border border-white/20 text-white hover:border-white/50 hover:bg-white/5;
+}
+@utility btn-ink {
+  @apply btn bg-ink text-paper hover:bg-ink-2;
+}
+@utility btn-ghost {
+  @apply btn border border-line text-ink hover:border-ink/40 hover:bg-ink/[0.03];
+}
+@utility link-underline {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.4s var(--ease-out-expo);
+  &:hover {
+    background-size: 100% 1px;
+  }
+}
+
+/* Continuous marquee of live domains */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Subtle film grain on dark sections */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
