@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "rythmnai-portfolio",
+  "compatibility_date": "2026-10-01",
+  // `next build` exports the whole site to ./out; no Worker code runs.
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  },
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "portfolio.rythmnai.com", "custom_domain": true }],
+  "observability": { "enabled": true }
+}

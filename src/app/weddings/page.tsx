@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
+import { Fade } from "@/components/Intro";
 import { InViewVideo } from "@/components/Media";
 import { ContactForm } from "@/components/ContactForm";
 import { projectBySlug } from "@/content/projects";
@@ -72,34 +73,34 @@ export default function Weddings() {
       <main id="main" className="bg-ivory text-maroon">
         {/* hero */}
         <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
-          <Image src="/weddings/flora-tl.webp" alt="" width={720} height={579} loading="eager" className="pointer-events-none absolute -top-10 -left-16 w-56 opacity-80 md:w-80" />
-          <Image src="/weddings/flora-br.webp" alt="" width={720} height={539} className="pointer-events-none absolute -right-16 bottom-0 w-56 opacity-70 md:w-80" />
+          <Image src="/weddings/flora-tl.webp" alt="" width={420} height={338} sizes="320px" className="pointer-events-none absolute -top-10 -left-16 w-56 opacity-80 md:w-80" />
+          <Image src="/weddings/flora-br.webp" alt="" width={420} height={314} sizes="320px" className="pointer-events-none absolute -right-16 bottom-0 w-56 opacity-70 md:w-80" />
           <div className="shell relative grid gap-14 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-6">
-              <Reveal y={10}>
+              <Fade>
                 <p className="eyebrow text-gold">Rythmn AI · Wedding websites & digital invitations</p>
-              </Reveal>
-              <Reveal delay={0.1}>
+              </Fade>
+              <Fade d={0.1}>
                 <h1 className="mt-6 font-wedding text-[clamp(3rem,6.6vw,5.8rem)] leading-[0.98] font-medium">
                   A wedding website as <em className="text-gold">beautiful</em> as the wedding.
                 </h1>
-              </Reveal>
-              <Reveal delay={0.2}>
+              </Fade>
+              <Fade d={0.18}>
                 <p className="mt-6 max-w-[48ch] text-[18px] leading-relaxed text-maroon/75">
                   Personalised invitations and wedding sites with the two of you illustrated in every ceremony — schedules, countdowns,
                   maps and RSVPs your guests open again and again. Designed for Indian weddings, built for phones and WhatsApp.
                 </p>
-              </Reveal>
-              <Reveal delay={0.3} className="mt-9 flex flex-wrap gap-3">
+              </Fade>
+              <Fade d={0.26} className="mt-9 flex flex-wrap gap-3">
                 <Link href="#enquire" className="btn bg-maroon text-ivory hover:bg-[#470a17]">
                   Plan your wedding website <span aria-hidden>→</span>
                 </Link>
                 <a href={live.url} target="_blank" rel="noopener noreferrer" className="btn border border-maroon/25 hover:border-maroon/60">
                   See a live wedding site ↗
                 </a>
-              </Reveal>
+              </Fade>
             </div>
-            <Reveal delay={0.2} className="relative lg:col-span-6">
+            <Fade d={0.18} className="relative lg:col-span-6">
               <div className="relative">
                 <div className="overflow-hidden rounded-[20px] border border-gold/40 shadow-[0_40px_80px_-40px_rgb(91_15_30/0.45)]">
                   <Image src="/work/wedding/wedding-hero.webp" alt={live.hero.alt} width={1800} height={1125} preload loading="eager" sizes="(min-width: 1024px) 45vw, 100vw" className="h-auto w-full" />
@@ -108,7 +109,7 @@ export default function Weddings() {
                   <Image src="/work/wedding/wedding-mobile-intro.webp" alt={live.mobile.alt} width={780} height={1688} sizes="200px" className="h-auto w-full" />
                 </div>
               </div>
-            </Reveal>
+            </Fade>
           </div>
         </section>
 
@@ -137,7 +138,7 @@ export default function Weddings() {
                     <div className="overflow-hidden rounded-[14px] border border-gold/30">
                       <Image src={s.src} alt={s.alt} width={1800} height={1125} sizes="(min-width: 768px) 33vw, 100vw" className="h-auto w-full" />
                     </div>
-                    <figcaption className="mt-2 text-[13px] text-maroon/60">{s.alt}</figcaption>
+                    <figcaption className="mt-2 text-[13px] text-maroon/80">{s.alt}</figcaption>
                   </figure>
                 </Reveal>
               ))}

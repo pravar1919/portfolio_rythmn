@@ -8,7 +8,7 @@ export function Footer() {
       <div className="shell grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:py-20">
         <div>
           <Link href="/" className="flex items-center gap-2.5 text-white" aria-label="Rythmn AI, home">
-            <Image src="/brand/logo-mark.png" alt="" width={32} height={32} className="size-8" />
+            <Image src="/brand/logo-mark.png" alt="" width={39} height={32} className="h-8 w-auto" />
             <span className="text-[17px] font-semibold tracking-tight">Rythmn AI</span>
           </Link>
           <p className="mt-5 max-w-sm text-[14px] leading-relaxed">

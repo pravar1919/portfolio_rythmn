@@ -12,14 +12,14 @@ export const services = [
     name: "AI integrations, LLM apps & RAG",
     outcome: "AI features that are grounded, metered and reviewable — so they survive contact with real customers.",
     points: ["LLM features over your own data (RAG)", "Agents and workflow automation with a human in the loop", "Cost tracking per run, per customer"],
-    evidence: ["RythmnAi", "astroapp", "preflight"],
+    evidence: ["RythmnAi", "Astro", "preflight"],
   },
   {
     id: "product",
     name: "Python, Django, FastAPI & React",
     outcome: "Product engineering on the stack most teams already run — clean APIs, fast interfaces, tests that mean something.",
     points: ["Django & DRF, FastAPI, async Python", "React, Next.js and TypeScript front ends", "PostgreSQL design and performance work"],
-    evidence: ["The House of Mush", "Thaper Dental Clinic", "astroapp"],
+    evidence: ["The House of Mush", "Thaper Dental Clinic", "Astro"],
   },
   {
     id: "cloud",

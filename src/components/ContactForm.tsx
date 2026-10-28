@@ -26,7 +26,7 @@ export function ContactForm({
   const styles = {
     dark: { label: "text-white/60", input: "border-white/15 bg-white/[0.04] text-white placeholder:text-white/30 focus:border-amber", btn: "btn-amber", note: "text-white/45" },
     light: { label: "text-muted", input: "border-line bg-white text-ink placeholder:text-ink/30 focus:border-ink", btn: "btn-ink", note: "text-muted" },
-    wedding: { label: "text-maroon/70", input: "border-maroon/20 bg-white/70 text-maroon placeholder:text-maroon/30 focus:border-maroon", btn: "btn bg-maroon text-ivory hover:bg-[#470a17]", note: "text-maroon/60" },
+    wedding: { label: "text-maroon/70", input: "border-maroon/20 bg-white/70 text-maroon placeholder:text-maroon/30 focus:border-maroon", btn: "btn bg-maroon text-ivory hover:bg-[#470a17]", note: "text-maroon/80" },
   }[theme];
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {

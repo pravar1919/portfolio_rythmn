@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { Reveal, WordRise } from "@/components/Reveal";
+import { Reveal } from "@/components/Reveal";
+import { Fade, WordRise } from "@/components/Intro";
 import { InViewVideo, ParallaxImage } from "@/components/Media";
 import { projectBySlug, projects } from "@/content/projects";
 
@@ -56,7 +57,7 @@ async function CaseStudy({ params }: { params: PageProps<"/work/[slug]">["params
             style={{ background: `radial-gradient(60% 70% at 85% 10%, ${p.accent}55, transparent 60%)` }}
           />
           <div className="shell relative">
-            <Reveal y={10}>
+            <Fade>
               <nav aria-label="Breadcrumb" className="eyebrow flex flex-wrap gap-3 text-white/50">
                 <Link href="/#work" className="hover:text-white">
                   Work
@@ -66,18 +67,18 @@ async function CaseStudy({ params }: { params: PageProps<"/work/[slug]">["params
                 <span aria-hidden>·</span>
                 <span>{p.sector}</span>
               </nav>
-            </Reveal>
+            </Fade>
             <h1 className="headline mt-8 text-[clamp(3rem,8vw,7.5rem)]">
               <WordRise text={p.name} />
             </h1>
-            <Reveal delay={0.4} className="mt-8 grid gap-8 lg:grid-cols-12">
+            <Fade d={0.25} className="mt-8 grid gap-8 lg:grid-cols-12">
               <p className="text-[clamp(1.15rem,1.7vw,1.5rem)] leading-snug text-white/75 lg:col-span-8">{p.title}</p>
               <div className="flex items-start gap-3 lg:col-span-4 lg:justify-end">
                 <a href={p.url} target="_blank" rel="noopener noreferrer" className="btn-amber">
                   Visit {p.url.replace("https://", "")} <span aria-hidden>↗</span>
                 </a>
               </div>
-            </Reveal>
+            </Fade>
           </div>
         </header>
 

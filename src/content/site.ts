@@ -4,7 +4,7 @@
 export const site = {
   name: "Rythmn AI",
   legalName: "Rythmn AI Digital Private Limited",
-  url: "https://rythmnai.com",
+  url: "https://portfolio.rythmnai.com",
   email: "hello@rythmnai.com",
   whatsapp: "",
   calendar: "",

@@ -1,0 +1,20 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/work/*
+  Cache-Control: public, max-age=604800
+
+/weddings/*
+  Cache-Control: public, max-age=604800
+
+/og/*
+  Cache-Control: public, max-age=604800
+
+/brand/*
+  Cache-Control: public, max-age=604800

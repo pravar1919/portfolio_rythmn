@@ -42,7 +42,7 @@ export function Nav({ tone = "dark" }: { tone?: "dark" | "light" }) {
     <header className={`fixed inset-x-0 top-0 z-50 transition-[background-color,color,box-shadow] duration-500 ${solid}`}>
       <nav aria-label="Main" className="shell flex h-16 items-center justify-between gap-6 md:h-20">
         <Link href="/" className="flex items-center gap-2.5" aria-label="Rythmn AI, home">
-          <Image src="/brand/logo-mark.png" alt="" width={32} height={32} className="size-8" />
+          <Image src="/brand/logo-mark.png" alt="" width={39} height={32} className="h-8 w-auto" />
           <span className="text-[17px] font-semibold tracking-tight">Rythmn AI</span>
         </Link>
 

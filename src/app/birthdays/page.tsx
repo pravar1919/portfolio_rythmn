@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
+import { Fade } from "@/components/Intro";
 import { InViewVideo } from "@/components/Media";
 import { ContactForm } from "@/components/ContactForm";
 import { projectBySlug } from "@/content/projects";
@@ -22,8 +23,8 @@ const bro = projectBySlug["bro-exe"];
 const acts = [
   { n: "Act I", t: "The boot", d: "A retro terminal starts “diagnosing” the birthday friend.", img: "/work/birthday/birthday-step1.webp" },
   { n: "Act II", t: "The diagnosis", d: "brain.exe: occasionally responsive. maturity.dll: missing.", img: "/work/birthday/birthday-step2.webp" },
-  { n: "Act III", t: "The crash", d: "ERROR 404: ANOTHER YEAR OF YOUR LIFE NOT FOUND.", img: "/work/birthday/birthday-crash3.webp" },
-  { n: "Act IV", t: "The celebration", d: "A gold reboot with roasts, a fake forecast, a gift and a sincere note.", img: "/work/birthday/birthday-crash5.webp" },
+  { n: "Act III", t: "The crash", d: "ERROR 404: ANOTHER YEAR OF YOUR LIFE NOT FOUND.", img: "/work/birthday/birthday-crash.webp" },
+  { n: "Act IV", t: "The celebration", d: "A gold reboot with roasts, a fake forecast, a gift and a sincere note.", img: "/work/birthday/birthday-step3.webp" },
 ];
 
 const features = [
@@ -60,37 +61,37 @@ export default function Birthdays() {
           <div aria-hidden className="absolute inset-0 bg-[radial-gradient(60%_60%_at_70%_30%,rgb(233_196_106/0.18),transparent_60%)]" />
           <div className="shell relative grid gap-14 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-6">
-              <Reveal y={10}>
+              <Fade>
                 <p className="eyebrow text-[#e9c46a]">Rythmn AI · Birthday microsites</p>
-              </Reveal>
-              <Reveal delay={0.1}>
+              </Fade>
+              <Fade d={0.1}>
                 <h1 className="headline mt-6 text-[clamp(3.2rem,7vw,6.4rem)] text-[#fff6dd]">
                   Birthday wishes they’ll <em className="text-[#e9c46a]">open twice.</em>
                 </h1>
-              </Reveal>
-              <Reveal delay={0.2}>
+              </Fade>
+              <Fade d={0.18}>
                 <p className="mt-6 max-w-[48ch] text-[18px] leading-relaxed text-[#f1dfb4]/70">
                   Turn a birthday message into a small interactive experience — reveals, photos, music and confetti, in a tone that’s
                   unmistakably yours. Sent as one link, opened on any phone.
                 </p>
-              </Reveal>
-              <Reveal delay={0.3} className="mt-9 flex flex-wrap gap-3">
+              </Fade>
+              <Fade d={0.26} className="mt-9 flex flex-wrap gap-3">
                 <Link href="#enquire" className="btn bg-[#e9c46a] text-[#0d0b07] hover:bg-[#f1d58a]">
                   Plan a surprise <span aria-hidden>→</span>
                 </Link>
                 <Link href="#try" className="btn border border-[#f1dfb4]/25 hover:border-[#f1dfb4]/60">
                   Try the demo
                 </Link>
-              </Reveal>
+              </Fade>
             </div>
-            <Reveal delay={0.2} className="relative lg:col-span-6">
+            <Fade d={0.18} className="relative lg:col-span-6">
               <div className="overflow-hidden rounded-[20px] border border-[#f1dfb4]/15 shadow-[0_40px_120px_-40px_rgb(233_196_106/0.35)]">
                 <Image src={bro.hero.src} alt={bro.hero.alt} width={1800} height={1125} preload loading="eager" sizes="(min-width: 1024px) 45vw, 100vw" className="h-auto w-full" />
               </div>
               <div className="absolute -bottom-8 -left-4 w-[28%] overflow-hidden rounded-[22px] border-[5px] border-[#1c1810] shadow-2xl sm:-left-8">
                 <Image src={bro.mobile.src} alt={bro.mobile.alt} width={780} height={1688} sizes="180px" className="h-auto w-full" />
               </div>
-            </Reveal>
+            </Fade>
           </div>
         </section>
 

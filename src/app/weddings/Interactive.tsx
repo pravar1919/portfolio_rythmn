@@ -86,7 +86,7 @@ export function CeremonyExplorer() {
             )}
           </motion.div>
         </AnimatePresence>
-        <p className="absolute right-0 bottom-0 left-0 z-10 text-center text-[12px] text-maroon/55">
+        <p className="absolute right-0 bottom-0 left-0 z-10 text-center text-[12px] text-maroon/80">
           Illustrations from Romit & Ayushi’s live site — every couple gets their own.
         </p>
       </div>
@@ -138,12 +138,12 @@ export function InvitePreview() {
             className="mt-2 w-full rounded-xl border border-maroon/20 bg-white/70 px-4 py-3 text-maroon outline-none focus:border-maroon"
           />
         </label>
-        <p className="text-[13px] text-maroon/60">Nothing you type leaves your browser.</p>
+        <p className="text-[13px] text-maroon/80">Nothing you type leaves your browser.</p>
       </form>
       <div className="lg:col-span-8">
         <div className="relative mx-auto max-w-[560px] overflow-hidden rounded-[28px] border border-gold/40 bg-[radial-gradient(120%_80%_at_50%_0%,#fff,#fbf1e6)] px-6 py-14 text-center shadow-[0_40px_80px_-40px_rgb(91_15_30/0.35)] sm:px-12">
-          <Image src="/weddings/flora-tl.webp" alt="" width={720} height={579} className="pointer-events-none absolute -top-6 -left-8 w-40 opacity-90 sm:w-52" />
-          <Image src="/weddings/flora-br.webp" alt="" width={720} height={539} className="pointer-events-none absolute -right-8 -bottom-6 w-40 opacity-90 sm:w-52" />
+          <Image src="/weddings/flora-tl.webp" alt="" width={420} height={338} sizes="208px" className="pointer-events-none absolute -top-6 -left-8 w-40 opacity-90 sm:w-52" />
+          <Image src="/weddings/flora-br.webp" alt="" width={420} height={314} sizes="208px" className="pointer-events-none absolute -right-8 -bottom-6 w-40 opacity-90 sm:w-52" />
           <p className="relative font-wedding text-[13px] tracking-[0.3em] text-gold uppercase">Together with their families</p>
           <p className="relative mt-6 font-wedding text-[clamp(2.4rem,7vw,3.8rem)] leading-[1.05] text-maroon italic" aria-live="polite">
             {a || "…"} <span className="text-gold">&</span> {b || "…"}
@@ -153,7 +153,7 @@ export function InvitePreview() {
             {(["days", "hours", "mins", "secs"] as const).map((k) => (
               <div key={k} className="rounded-xl border border-gold/30 bg-white/60 py-3">
                 <p className="font-wedding text-[28px] leading-none text-maroon tabular-nums">{left ? String(left[k]).padStart(2, "0") : "--"}</p>
-                <p className="mt-1 font-mono text-[9px] tracking-[0.2em] text-maroon/55 uppercase">{k}</p>
+                <p className="mt-1 font-mono text-[9px] tracking-[0.2em] text-maroon/80 uppercase">{k}</p>
               </div>
             ))}
           </div>

@@ -95,7 +95,6 @@ export function ToneDemo() {
                 exit={{ opacity: 0, rotateY: 80, scale: 0.98 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="group absolute inset-0 flex flex-col items-center justify-center rounded-[28px] border border-[#f1dfb4]/25 bg-[#17130b] text-[#f1dfb4] shadow-[0_40px_80px_-30px_rgb(0_0_0/0.8)]"
-                aria-label={`Open the ${t.label.toLowerCase()} birthday card for ${name || "them"}`}
               >
                 <motion.span
                   aria-hidden
@@ -106,7 +105,9 @@ export function ToneDemo() {
                   🎁
                 </motion.span>
                 <span className="mt-6 font-display text-[2.2rem] italic">For {name || "you"}</span>
-                <span className="mt-3 font-mono text-[11px] tracking-[0.2em] uppercase opacity-60 transition-opacity group-hover:opacity-100">Tap to open</span>
+                <span className="mt-3 font-mono text-[11px] tracking-[0.2em] uppercase opacity-60 transition-opacity group-hover:opacity-100">
+                  Tap to open <span className="sr-only">the {t.label.toLowerCase()} card</span>
+                </span>
               </motion.button>
             ) : (
               <motion.div

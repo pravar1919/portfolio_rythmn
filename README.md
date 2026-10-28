@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rythmn AI — portfolio site
 
-## Getting Started
+Portfolio and lead-generation site for Rythmn AI Digital Private Limited: B2B software services, five live
+case studies, and two personal-experience offerings (wedding websites, birthday microsites).
 
-First, run the development server:
+Next.js 16 (App Router, Cache Components) · TypeScript · Tailwind CSS 4 · Motion · fully static output.
+
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where things live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | File |
+| --- | --- |
+| Company facts, email, contact channels | `src/content/site.ts` |
+| Case studies and “workbench” projects | `src/content/projects.ts` |
+| Services, engagement models, process | `src/content/services.ts` |
+| Home page | `src/app/page.tsx` |
+| Case study template | `src/app/work/[slug]/page.tsx` |
+| Wedding / birthday landing pages | `src/app/weddings/`, `src/app/birthdays/` |
+| Design tokens and utilities | `src/app/globals.css` |
+| Outreach messages (LinkedIn, email, WhatsApp) | `OUTREACH.md` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Turning on WhatsApp or a booking link:** set `whatsapp` (digits with country code) or `calendar` in
+`src/content/site.ts`. The contact forms show a WhatsApp button automatically once it’s set.
 
-## Learn More
+**Contact forms** have no backend: submitting opens the visitor’s email app with a pre-filled message to
+`hello@rythmnai.com`. To collect submissions server-side instead, point `ContactForm` at a form service.
 
-To learn more about Next.js, take a look at the following resources:
+## Media
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Everything in `public/work/` was captured from the live sites on 2026-10-28 with Playwright — desktop
+(1440×900) and mobile (390×844) screenshots, plus muted VP9 screen recordings. On the wedding site the
+parents’ names and phone numbers were hidden before capture. Wedding ceremony illustrations in
+`public/weddings/` come from the Romit & Ayushi project.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To add a project: capture screenshots into `public/work/<slug>/`, add an entry to `projects` in
+`src/content/projects.ts`, and it appears on the home page list, gets a case-study page, and is added to
+the sitemap.
 
-## Deploy on Vercel
+## Content rules
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Only verified facts: no invented clients, testimonials or metrics. Every outcome on the site comes from the
+  project’s own code, configuration or live site.
+- Demos are labelled as demos (the wedding invitation preview and the birthday tone picker).
+- Keep personal data of celebration clients out of screenshots and recordings.

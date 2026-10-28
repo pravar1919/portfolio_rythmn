@@ -3,14 +3,15 @@ import Link from "next/link";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { HeroPulse } from "@/components/HeroPulse";
-import { Reveal, WordRise } from "@/components/Reveal";
+import { Reveal } from "@/components/Reveal";
+import { Fade, WordRise } from "@/components/Intro";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ContactForm } from "@/components/ContactForm";
 import { lab, projectBySlug, projects } from "@/content/projects";
 import { engagements, process, services } from "@/content/services";
 import { site } from "@/content/site";
 
-const featured = ["thaper-dental", "nutrition-simplified", "rythmnai-social"].map((s) => projectBySlug[s]);
+const featured = ["thaper-dental", "nutrition-simplified", "rythmnai-social", "astro"].map((s) => projectBySlug[s]);
 
 export default function Home() {
   return (
@@ -36,7 +37,7 @@ function Hero() {
     <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-night text-white grain">
       <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(80%_60%_at_70%_20%,rgb(11_111_232/0.16),transparent_60%)]" />
       <div className="shell flex flex-1 flex-col justify-center pt-28 pb-[16vh] md:pt-32">
-        <Reveal y={12}>
+        <Fade>
           <p className="eyebrow flex flex-wrap items-center gap-x-3 gap-y-1 text-white/55">
             <span className="text-amber">Software studio</span>
             <span aria-hidden>/</span>
@@ -44,13 +45,13 @@ function Hero() {
             <span aria-hidden>/</span>
             <span>Alwar, India — working worldwide</span>
           </p>
-        </Reveal>
+        </Fade>
         <h1 className="headline mt-7 max-w-[15ch] text-[clamp(3.1rem,8.6vw,8.4rem)]">
-          <WordRise text="The engineering partner for teams who need it" delay={0.1} />{" "}
-          <WordRise text="shipped." className="text-amber italic" delay={0.55} />
+          <WordRise text="The engineering partner for teams who need it" delay={0.05} />{" "}
+          <WordRise text="shipped." className="text-amber italic" delay={0.45} />
         </h1>
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <Reveal delay={0.7}>
+          <Fade d={0.2}>
             <p className="max-w-[54ch] text-[clamp(1.05rem,1.4vw,1.25rem)] leading-relaxed text-white/70">
               Rythmn AI designs, builds and runs SaaS products, AI features and cloud infrastructure for startup founders and
               software agencies — Python, Django, FastAPI and React, from the first commit to production. Hire us for a
@@ -64,10 +65,10 @@ function Hero() {
                 See live work
               </Link>
             </div>
-          </Reveal>
-          <Reveal delay={0.9}>
+          </Fade>
+          <Fade d={0.35}>
             <LiveList />
-          </Reveal>
+          </Fade>
         </div>
       </div>
       <HeroPulse className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[22vh] min-h-28 w-full" />
@@ -154,7 +155,7 @@ function Work() {
             </h2>
           </div>
           <p className="max-w-[38ch] text-[15px] text-white/55">
-            Hover a project to watch an unedited recording of the live site. Every link opens the real thing.
+            On desktop, hover a project to watch an unedited recording of the live site. Every link opens the real thing.
           </p>
         </Reveal>
         <div className="mt-20 space-y-28 md:space-y-40">

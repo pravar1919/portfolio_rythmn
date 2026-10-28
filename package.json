@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prebuild": "node scripts/image-variants.mjs",
+    "preview": "npm run build \\&\\& wrangler dev",
+    "deploy": "npm run build \\&\\& wrangler deploy"
   },
   "dependencies": {
     "motion": "^14.7.1",
@@ -23,6 +26,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.154.0"
   }
 }

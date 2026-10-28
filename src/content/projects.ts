@@ -137,6 +137,46 @@ export const projects: Project[] = [
     accent: "#147C8A",
   },
   {
+    slug: "astro",
+    name: "Astro",
+    kind: "Our product",
+    sector: "Vedic astrology · AI · English & Hindi",
+    url: "https://astro.rythmn.in",
+    title: "A Vedic astrology app that shows its working — every reading cites the chart factors behind it.",
+    summary:
+      "Our own bilingual product: a calculation engine for kundali, dashas and panchang, rule-based readings that explain themselves, and an AI chat that answers only from facts the engine has already computed.",
+    challenge:
+      "Most astrology apps hand people a verdict with no reasoning, and AI chatbots will happily invent planetary positions. We wanted readings people could check: grounded in real astronomical calculation, consistent from one chart to the next, and honest about uncertainty.",
+    solution:
+      "A Python engine computes positions from the Swiss Ephemeris and builds the birth, marriage (D9) and career (D10) charts, dasha periods and a daily panchang. Readings come from a written set of traditional rules, and each one shows the factors that help, the ones that pull the other way, and how much weight to give it. Ask Astro works out which part of life and which time span a question is about, gathers the matching chart factors, and only then has the model write an answer that cites them.",
+    outcomes: [
+      "Live in English and Hindi, with a free kundali from date, time and place of birth",
+      "Every reading lists the chart factors it rests on — and the ones that weigh against it",
+      "The AI never calculates a position: it writes only from facts the engine has computed",
+    ],
+    engineering: [
+      "Swiss Ephemeris positions in the sidereal zodiac, with five ayanamsa options and mean or true nodes",
+      "Birth-time sensitivity flagged: parts that depend on an exact time are marked when it is unknown or near a change",
+      "Questions are classified by topic, intent and time span before any model call; the model is sent the computed chart facts and the conversation, never asked to calculate",
+      "Razorpay billing reconciled against a read-only ledger, with every admin change recorded in an audit log",
+    ],
+    stack: ["Python", "FastAPI", "Swiss Ephemeris", "OpenAI", "Razorpay", "Vanilla JS"],
+    hero: W("astro", "astro-hero", "Astro home page: 'Your Kundali. Explained in a way that makes sense.' beside a North Indian birth chart"),
+    mobile: W("astro", "astro-mobile", "A calculated birth chart in Astro on a phone", true),
+    shots: [
+      W("astro", "astro-kundali", "The birth chart (D1) for a made-up sample birth, with tabs for the marriage and career charts and a birth-time reliability note"),
+      W("astro", "astro-why", "‘Why is Saturn read as Mostly helpful?’ — the factors that help, the ones that weigh against, and how sure to be"),
+      W("astro", "astro-sky", "Your sky at birth: an interactive ring of the zodiac you can turn and tap"),
+      W("astro", "astro-planets", "Every planet in plain words, filterable by career, money, marriage, health and more"),
+      W("astro", "astro-ask", "Ask Astro: the question, the ranked chart factors, then an answer that cites them"),
+      W("astro", "astro-panchang", "A monthly panchang with tithi, nakshatra and festivals for any city"),
+      W("astro", "astro-hindi", "The same app in Hindi"),
+    ],
+    video: { src: "/work/astro/demo.webm", poster: "/work/astro/poster.webp" },
+    og: "/og/astro.jpg",
+    accent: "#D4A657",
+  },
+  {
     slug: "romit-ayushi-wedding",
     name: "Romit & Ayushi · #ROHI",
     kind: "Celebration",
@@ -202,7 +242,7 @@ export const projects: Project[] = [
     shots: [
       W("birthday", "birthday-step1", "Act one: the boot sequence scans the friendship database"),
       W("birthday", "birthday-step2", "Friendship diagnostics: brain.exe occasionally responsive, maturity.dll missing"),
-      W("birthday", "birthday-crash3", "The crash: CRITICAL SYSTEM ERROR — another year of your life not found"),
+      W("birthday", "birthday-crash", "The crash: CRITICAL SYSTEM ERROR — another year of your life not found"),
       W("birthday", "birthday-step3", "Celebration mode: the LEGEND reveal, with a personal diagnosis for the friend"),
       W("birthday", "birthday-party", "The birthday control panel: roast me back, predict my future, unlock my gift"),
     ],
@@ -224,13 +264,6 @@ export const lab: LabItem[] = [
     what: "A multi-tenant ERP for universities, schools and coaching institutes: admissions, academics, exams, finance, HR and more.",
     proof: "Schema-per-tenant PostgreSQL isolation, with separate React consoles for institutions and for the platform operator.",
     stack: ["Django", "DRF", "django-tenants", "React", "PostgreSQL"],
-  },
-  {
-    name: "astroapp",
-    status: "Private build",
-    what: "Vedic kundali, numerology and name analysis: a calculation engine, an HTTP API, and a chat that answers questions about your chart.",
-    proof: "The language model only explains facts the engine has already computed — it never calculates a position itself. Razorpay billing with an audited admin console.",
-    stack: ["Python", "FastAPI", "OpenAI", "Razorpay"],
   },
   {
     name: "preflight",
